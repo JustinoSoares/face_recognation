@@ -1,0 +1,8 @@
+flask
+flask-socketio
+python-socketio
+eventlet
+opencv-python-headless
+face_recognition
+numpy==1.21.0
+
