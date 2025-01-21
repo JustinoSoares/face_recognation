@@ -63,7 +63,7 @@ async def process_video():
                 match_results = {}
                 for name, encodings in known_encodings.items():
                     for known_encoding in encodings:
-                        result = face_recognition.compare_faces([known_encoding], unknown_encoding, tolerance=0.4)
+                        result = face_recognition.compare_faces([known_encoding], unknown_encoding, tolerance=0.35)
                         if result[0]:
                             match_results[name] = match_results.get(name, 0) + 1
                 label = max(match_results, key=match_results.get) if match_results else "Desconhecido"
