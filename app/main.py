@@ -21,7 +21,7 @@ def adjust_brightness(image, beta=50):
 async def load_image_from_url(url):
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
-        image = Image.open(io.BytesIO(response.content))
+        image = Image.open(io.BytesIO(response.content)).convert('RGB')
         return np.array(image)
 
 async def get_known_faces_from_db():
@@ -35,6 +35,7 @@ async def get_known_faces_from_db():
             img_url = foto.url
             image = await load_image_from_url(img_url)
             encodings = face_recognition.face_encodings(image)
+            del image
             if encodings:
                 known_faces.append((encodings[0], name))
     return known_faces, alunos_map
@@ -95,6 +96,7 @@ async def process_video():
     finally:
         if video_capture.isOpened():
             video_capture.release()
+        await prisma.disconnect()  # Garantir que a conexão com o banco seja fechada
 @socketio.on('start_video')
 def start_video_stream():
     def wrapper():
