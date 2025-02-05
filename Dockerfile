@@ -43,5 +43,5 @@ RUN . venv/bin/activate \
     && prisma py fetch  # Baixa os binários necessários
 
 # Comando de inicialização do aplicativo
-CMD ["venv/bin/python", "/app/app/main.py"]
+CMD [".venv/bin/python", "/app/app/main.py"]
 
